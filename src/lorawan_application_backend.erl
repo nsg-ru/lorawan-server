@@ -8,6 +8,7 @@
 
 -export([init/1, handle_join/3, handle_uplink/4, handle_rxq/5, handle_delivery/3]).
 -export([handle_downlink/2]).
+-export([cayenne_decode/1]).
 % for internal
 -export([send_class_c/4]).
 
@@ -426,7 +427,7 @@ cayenne_decode(<<Ch, 128, Val:16/signed-integer, Rest/binary>>, Acc) ->
 % energy
 cayenne_decode(<<Ch, 131, Val:16/signed-integer, Rest/binary>>, Acc) ->
     cayenne_decode(Rest, add_field(Ch, Val/10, Acc));
-% direction 
+% direction
 cayenne_decode(<<Ch, 132, Val/unsigned-integer, Rest/binary>>, Acc) ->
     cayenne_decode(Rest, add_field(Ch, Val, Acc));
 % gyrometer
